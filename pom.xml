@@ -88,8 +88,41 @@ To make a bundle and request that ibilio upload it, do:
     <developerConnection>scm:cvs:ext:${maven.username}@jline.cvs.sourceforge.net:/cvsroot/jline:jline</developerConnection>
     <url>http://jline.cvs.sourceforge.net/jline</url>
   </scm>
+  
+  <repositories>
+    <repository>
+      <id>jansi.release.m2</id>
+      <name>jansi Release Repository</name>
+      <url>http://jansi.fusesource.org/repo/release</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+    </repository>
+    <repository>
+      <id>jansi.snapshot.m2</id>
+      <name>jansi Release Repository</name>
+      <url>http://jansi.fusesource.org/repo/snapshot</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+    </repository>
+  </repositories>
+  
   <dependencies>
+  
     <dependency>
+      <groupId>org.fusesource.jansi</groupId>
+      <artifactId>jansi</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+ 
+   <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>

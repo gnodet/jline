@@ -6,9 +6,16 @@
  */
 package jline;
 
-import java.io.*;
-
-import jline.UnixTerminal.ReplayPrefixOneCharInputStream;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 
 /**
  * <p>
@@ -399,13 +406,6 @@ public class WindowsTerminal extends Terminal {
 
     public boolean isSupported() {
         return true;
-    }
-
-    /**
-     * Windows doesn't support ANSI codes by default; disable them.
-     */
-    public boolean isANSISupported() {
-        return false;
     }
 
     public boolean getEcho() {

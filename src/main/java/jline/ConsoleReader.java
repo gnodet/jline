@@ -789,10 +789,6 @@ public class ConsoleReader implements ConsoleOperations {
      * Clear the screen by issuing the ANSI "clear screen" code.
      */
     public boolean clearScreen() throws IOException {
-        if (!terminal.isANSISupported()) {
-            return false;
-        }
-
         // send the ANSI code to clear the screen
         printString(((char) 27) + "[2J");
         flushConsole();

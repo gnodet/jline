@@ -8,6 +8,8 @@ package jline;
 
 import java.io.*;
 
+import org.fusesource.jansi.AnsiConsole;
+
 /**
  *  Representation of the input terminal for a platform. Handles
  *  any initialization that the platform may need to perform
@@ -17,6 +19,14 @@ import java.io.*;
  *  @author  <a href="mailto:mwp1@cornell.edu">Marc Prud'hommeaux</a>
  */
 public abstract class Terminal implements ConsoleOperations {
+	
+	static {
+		// We need jansi hooked into the system.  This lets us have a consistent
+		// ANSI output backend.
+		AnsiConsole.systemInstall();
+	}
+	
+	
     private static Terminal term;
 
     /**
@@ -83,8 +93,8 @@ public abstract class Terminal implements ConsoleOperations {
     }
 
     /**
-     *  Returns true if the current console supports ANSI
-     *  codes.
+     *  @deprecated You can allways send ANSI to stdout now.
+     *  			see {@link AnsiConsole} for more details. 
      */
     public boolean isANSISupported() {
         return true;
