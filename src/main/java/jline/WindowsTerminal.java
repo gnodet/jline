@@ -298,6 +298,19 @@ public class WindowsTerminal extends Terminal {
     }
 
     private void loadLibrary(final String name) throws IOException {
+        int bits = 32;
+        if (System.getProperty("os.arch").indexOf("64") != -1) {
+            bits = 64;
+        }
+
+        // If we are in OSGi, the library is already available
+        // The specific file name (jline + bits) is to avoid duplication of the dll just for OSGi
+        try {
+            System.loadLibrary(name + bits);
+            return;
+        } catch (UnsatisfiedLinkError e) {
+            // non-OSGi - Fall back to manual extraction and loading
+        }
         // store the DLL in the temporary directory for the System
         String version = getClass().getPackage().getImplementationVersion();
 
@@ -313,12 +326,6 @@ public class WindowsTerminal extends Terminal {
 
         // extract the embedded jline.dll file from the jar and save
         // it to the current directory
-        int bits = 32;
-
-        // check for 64-bit systems and use to appropriate DLL
-        if (System.getProperty("os.arch").indexOf("64") != -1)
-            bits = 64;
-
         InputStream in = new BufferedInputStream(getClass()
             .getResourceAsStream(name + bits + ".dll"));
 

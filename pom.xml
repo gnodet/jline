@@ -165,6 +165,14 @@ To make a bundle and request that ibilio upload it, do:
               <instructions>
                 <Import-Package>!jline*,javax.swing;resolution:=optional,*</Import-Package>
                 <DynamicImport-Package>*</DynamicImport-Package>
+                <Bundle-NativeCode>jline/jline32.dll;
+                                   osname=Win32;
+                                   processor=x86,
+                                   jline/jline64.dll;
+                                   osname=Win32;
+                                   processor=x86-64,
+                                   *
+                </Bundle-NativeCode>
               </instructions>
             </configuration>
           </execution>
