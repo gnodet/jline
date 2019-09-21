@@ -15,7 +15,7 @@ import java.util.*;
 import java.util.List;
 
 /**
- * A reader for console applications. It supports custom tab-completion,
+ * A reader for console applications. It supports custom tab-completionn
  * saveable command history, and command line editing. On some platforms,
  * platform-specific commands will need to be issued before the reader will
  * function properly. See {@link Terminal#initializeTerminal} for convenience
@@ -218,6 +218,14 @@ public class ConsoleReader implements ConsoleOperations {
                     bindings = new FileInputStream(new File(bindingFile));
                 } 
             } catch (Exception e) {
+		// Let the application handle it and give appropriate suggestions to the user
+		// instead of hitting them with a useless stacktrace or no information at all.
+		// That's the case on linux sometimes when the terminal settings change and you
+		// end up with uncomplete ConsoleReader initialization, causing features such
+		// as command completion/recalling to be disabled.
+		if (e instanceof NumberFormatException) {
+                   throw e;
+		}
                 // swallow exceptions with option debugging
                 if (debugger != null) {
                     e.printStackTrace(debugger);
